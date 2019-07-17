@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link, withRouter } from 'react-router-dom';
 import auth from './auth'
+import Recaptcha from 'react-recaptcha';
 
 import {URLGRAPH} from '../constants'
 
@@ -78,10 +79,12 @@ class Login extends Component{
       hash: '',
       token: '',
       isAuth: false,
+      isVerified: false,
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.sendReq = this.sendReq.bind(this);
+    this.recaptchaLoaded = this.recaptchaLoaded.bind(this);
   }
 
   componentWillMount(){
@@ -108,8 +111,8 @@ class Login extends Component{
         password: target.value,
         hash: md5(target.value)
         })
-      }
     }
+  }
 
   async sendReq() {
     const axios = require("axios")
@@ -127,7 +130,7 @@ class Login extends Component{
       }`
     }).then((result) => {
         jwt = result.data.data.loginUser  
-
+        
         if(!jwt.success){
           this.sendReqAdmin()
         }
@@ -161,10 +164,27 @@ class Login extends Component{
 
     handleKeyPress = (event) => {
       if(event.key === 'Enter'){
+        
         this.sendReq()
       }
     }
-  
+    
+    // para el captcha
+    isVerifiedSuccess = (event) => {
+      if (this.state.isVerified){
+        this.sendReq();
+      }else{
+        alert("Please complete the Captcha");
+      }
+    }
+    recaptchaLoaded = (event) =>{
+      console.log("Captcha complete");
+    }
+    verifyCallback = (event) =>{
+      this.setState({
+        isVerified: true
+      })
+    }
   
     async sendReqAdmin() {
       const axios = require("axios")
@@ -242,7 +262,8 @@ class Login extends Component{
                   onChange={this.handleInputChange}
                 />              
                 
-                <Grid container justify="flex-end">
+               
+               <Grid container justify="flex-end">
                   <FormControlLabel
                     control={<Checkbox value="remember" color="primary" />}
                     label="Recuérdame"
@@ -254,7 +275,7 @@ class Login extends Component{
                     variant="contained"
                     color="secondary"
                     className={classes.submit}
-                    onClick={this.sendReq}>
+                    onClick={this.isVerifiedSuccess}>
                     Iniciar sesión                    
                   </Button>
 
@@ -282,7 +303,12 @@ class Login extends Component{
                 <Box mt={5}>
                   <MadeWithLove />
                 </Box>
-
+                <Recaptcha
+                sitekey="6LeADK4UAAAAADsPQ17MWODvv3cAE5ENeem2zD5e"
+                render="explicit"
+                onloadCallback={this.recaptchaLoaded}
+                verifyCallback={this.verifyCallback}
+                />
 
               </form>
             </div>

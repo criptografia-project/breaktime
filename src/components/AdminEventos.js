@@ -5,6 +5,7 @@ import { CssBaseline } from '@material-ui/core';
 import BarraAdmin from './BarraAdmin';
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Card from './cards/CardEventos';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
