@@ -46,8 +46,7 @@ class Auth {
                 message
             }
         }`
-        },
-        {headers: {"Log" : 'Validate token: ' + tok}}
+        }
         ).then((result) => {
             let jwt = result.data.data.validate
             console.log(jwt)      
