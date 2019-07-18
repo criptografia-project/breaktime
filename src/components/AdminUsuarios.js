@@ -110,6 +110,7 @@ class AdminUsuarios extends Component{
       url: URLGRAPH,
       method: 'post',
       data: {"query":"query{ getUsers{id uname surname}}","variables":null},
+      headers: {"Log" : 'Get users'}
       })
       .then((result) => {
         let data = result.data.data.getUsers
@@ -124,7 +125,8 @@ class AdminUsuarios extends Component{
     await axios({
       url: URLGRAPH,
       method: 'post',
-      data: {"query":"query{ getPassengers{ id id_user birthdate email phone } }","variables":null}
+      data: {"query":"query{ getPassengers{ id id_user birthdate email phone } }","variables":null},
+      headers: {"Log" : 'Get passangers'}
     })
       .then((result) => {
         let data = result.data.data.getPassengers

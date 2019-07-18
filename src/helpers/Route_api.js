@@ -1,3 +1,3 @@
-const API_ROUTE = 'http://104.198.249.5:81/graphql';
+const API_ROUTE = 'http://35.247.250.149:5000/graphql';
 
 export default API_ROUTE;
