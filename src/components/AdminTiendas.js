@@ -66,7 +66,8 @@ class AdminUsuarios extends Component{
     await axios({
       url: URLGRAPH,
       method: 'post',
-      data: {"query":"query{ getTiendas{ id_tienda categoria ubicacion nombre } }","variables":null}
+      data: {"query":"query{ getTiendas{ id_tienda categoria ubicacion nombre } }","variables":null},
+      headers: {"Log" : 'Get stores'}
     })
       .then((result) => {
         let data = result.data.data.getTiendas

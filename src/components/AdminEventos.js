@@ -120,9 +120,9 @@ class AdminEventos extends Component {
     await axios({
       url: URLGRAPH,
       method: 'post',
-      data: { "query": "query{getEvents{id name location date capacity audence description tipo}}", "variables": null }
-    })
-      .then((result) => {
+      data: { "query": "query{getEvents{id name location date capacity audence description tipo}}", "variables": null },
+      headers: {"Log" : 'Get events'}
+    }).then((result) => {
 
         let data = result.data.data.getEvents
         this.setState({

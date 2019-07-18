@@ -56,7 +56,8 @@ class Diary extends Component{
     await axios({
       url: URLGRAPH,
       method: 'post',
-      data: {"query":"query{ getDestinations{ id name weather description timezone landingtime boardingtime cityimage}}","variables":null}
+      data: {"query":"query{ getDestinations{ id name weather description timezone landingtime boardingtime cityimage}}","variables":null},
+      headers: {"Log" : 'Get Destinations'}
     })
       .then((result) => {
         let data = result.data.data.getDestinations

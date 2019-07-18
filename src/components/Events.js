@@ -84,7 +84,8 @@ class Events extends Component{
     await axios({
       url: URLGRAPH,
       method: 'post',
-      data: {"query":"query{  getEvents{id name location date capacity audence description tipo}}","variables":null}
+      data: {"query":"query{  getEvents{id name location date capacity audence description tipo}}","variables":null},
+      headers: {"Log" : 'Get Events'}
     })
       .then((result) => {
         let data = result.data.data.getEvents

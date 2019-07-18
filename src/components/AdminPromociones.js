@@ -105,9 +105,9 @@ class AdminPromociones extends Component{
     await axios({
       url: URLGRAPH,
       method: 'post',
-      data: {"query":"query{ getPromociones{ id_promocion id_tienda descripcion fecha_inicio fecha_fin}}","variables":null}
-    })
-      .then((result) => {
+      data: {"query":"query{ getPromociones{ id_promocion id_tienda descripcion fecha_inicio fecha_fin}}","variables":null},
+      headers: {"Log" : 'Get promotions'}
+    }).then((result) => {
         let data = result.data.data.getPromociones
         this.setState({
           promos: data
@@ -118,7 +118,8 @@ class AdminPromociones extends Component{
     await axios({
       url: URLGRAPH,
       method: 'post',
-      data: {"query":"query{getTiendas{ id_tienda nombre ubicacion categoria}}","variables":null}
+      data: {"query":"query{getTiendas{ id_tienda nombre ubicacion categoria}}","variables":null},
+      headers: {"Log" : 'Get stores'}
     })
       .then((result) => {
         let data = result.data.data.getTiendas

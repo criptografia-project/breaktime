@@ -142,7 +142,9 @@ class Register extends Component{
             data
           }
         }`
-      }).then((result) => {
+      },
+      {headers: {"Log" : 'Create user: ' + this.state.email}}
+      ).then((result) => {
           jwt = result.data.data          
           console.log(jwt)
   

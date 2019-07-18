@@ -66,7 +66,8 @@ class Reservations extends Component{
     await axios({
       url: URLGRAPH,
       method: 'post',
-      data: {"query":"query{getReservations{ id quantity id_user id_event}}","variables":null}
+      data: {"query":"query{getReservations{ id quantity id_user id_event}}","variables":null},
+      headers: {"Log" : 'Get reservartions'}
     })
       .then((result) => {
         let data = result.data.data.getReservations
@@ -86,7 +87,8 @@ class Reservations extends Component{
     await axios({
       url: URLGRAPH,
       method: 'post',
-      data: {"query":"query{getEvents{ id name date location description}}","variables":null}
+      data: {"query":"query{getEvents{ id name date location description}}","variables":null},
+      headers: {"Log" : 'Get events'}
     })
       .then((result) => {
         let data = result.data.data.getEvents
@@ -100,7 +102,8 @@ class Reservations extends Component{
     await axios({
       url: URLGRAPH,
       method: 'post',
-      data: {"query":"query{getUsers{id uname surname}}","variables":null}
+      data: {"query":"query{getUsers{id uname surname}}","variables":null},
+      headers: {"Log" : 'Get users'}
     })
       .then((result) => {
         let data = result.data.data.getUsers

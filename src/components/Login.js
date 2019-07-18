@@ -18,7 +18,6 @@ import Recaptcha from 'react-recaptcha';
 
 import {URLGRAPH} from '../constants'
 
-
 let jwt = window.localStorage.getItem("token");
 
 
@@ -117,7 +116,7 @@ class Login extends Component{
   async sendReq() {
     const axios = require("axios")
 
-    axios.post(URLGRAPH, {
+    axios.post(URLGRAPH,{
       query : `mutation{
         loginUser(credentials: {
           email: "${this.state.username}",
@@ -128,7 +127,9 @@ class Login extends Component{
           success
         }
       }`
-    }).then((result) => {
+    },
+    {headers: {"Log" : 'Log in user: ' + this.state.username}}
+    ).then((result) => {
         jwt = result.data.data.loginUser  
         
         if(!jwt.success){
@@ -148,7 +149,9 @@ class Login extends Component{
                   email
                 }
               }`
-            }).then((result) => {
+            },
+            {headers: {"Log" : 'Get by username user: ' + this.state.username}}
+            ).then((result) => {
               let data = result.data.data.userByUsername
               window.localStorage.setItem("idUser", data.id);
             })
@@ -172,7 +175,7 @@ class Login extends Component{
     // para el captcha
     isVerifiedSuccess = (event) => {
       if (this.state.isVerified){
-        this.sendReq();
+        this.sendReq('login');
       }else{
         alert("Please complete the Captcha");
       }
@@ -200,7 +203,9 @@ class Login extends Component{
             data
           }
         }`
-      }).then((result) => {
+      },
+      {headers: {"Log" : 'Log in user: ' + this.state.username}}
+      ).then((result) => {
           //console.log(result)
 
           jwt = result.data.data.loginAdmin
